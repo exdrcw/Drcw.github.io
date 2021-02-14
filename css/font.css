@@ -1,4 +1,8 @@
 @font-face {
-    font-family: 'sleek';
-    src: url('https://cdn.jsdelivr.net/gh/lete114/CDN2/zaxiang/sleek.woff2');
+    font-family: 'Candyhome';
+    src: url('/fonts/甜甜圈海报字体.ttf');
+}
+
+h1#site-title {
+  font-family: 'Candyhome', sans-serif;
 }
