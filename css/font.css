@@ -23,7 +23,7 @@ div#category{
   background: rgba(255, 255, 255, 0.9);
 }
 
-#web_bg {
+#body-wrap {
 	position: fixed;
     z-index: -999;
     width: 100%;
