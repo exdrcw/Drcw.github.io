@@ -4,8 +4,14 @@
 	font-display : swap;
 }
 
-font-family: 'Candyhome', sans-serif;
+body {
+  font-family: 'Candyhome', sans-serif;
+}
 
+div#post p {
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Lato,Roboto,"PingFang SC",STZhongsong,"Lantinghei SC",sans-serif;
+    
+}
 
 div#post{
   background: rgba(255, 255, 255, 0.9);
@@ -31,7 +37,15 @@ div#category{
     background-repeat: no-repeat
 }
 
-
-#page-header{
-  background: rgba(255, 255, 255, 0.5);
+#page-header,#footer{
+  background: rgb(0 0 0 / 25%);
 }
+
+#post{
+  background: rgb(255 255 255 / 0.9);
+}
+
+:root{
+  --card-bg:rgba(255 255 255 / 0.9);
+}
+
