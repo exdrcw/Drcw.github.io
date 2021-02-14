@@ -1,6 +1,7 @@
 @font-face {
     font-family: 'Candyhome';
     src: url('/fonts/甜甜圈海报字体.ttf');
+	font-display : swap;
 }
 
 h1#site-title {
