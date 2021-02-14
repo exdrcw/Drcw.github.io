@@ -30,3 +30,8 @@ div#category{
     background-size: cover;
     background-repeat: no-repeat
 }
+
+
+#page-header{
+  background: rgba(255, 255, 255, 0.5);
+}
