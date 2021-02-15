@@ -30,11 +30,11 @@ div#category{
 }
 
 #body-wrap {
-    background: url(https://cdn.jsdelivr.net/gh/exdrcw/exdrcw.github.io@master/images/bg.webp);
+/*     background: url(https://cdn.jsdelivr.net/gh/exdrcw/exdrcw.github.io@master/images/bg.webp);
     background-attachment: local;
     background-position: center;
     background-size: cover;
-    background-repeat: no-repeat
+    background-repeat: no-repeat */
 }
 
 #page-header,#footer{
