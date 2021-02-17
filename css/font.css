@@ -38,7 +38,7 @@ div#category{
 }
 
 #page-header,#footer{
-  background: rgb(0 0 0 / 25%);
+  background: rgb(0 0 0 / 25%)!important;
 }
 
 #post{
