@@ -1,6 +1,6 @@
 @font-face {
     font-family: 'Candyhome';
-    src: url('https://exdrcw.github.io/fonts/%E7%94%9C%E7%94%9C%E5%9C%88%E6%B5%B7%E6%8A%A5%E5%AD%97%E4%BD%93.ttf');
+    src: url('../fonts/甜甜圈海报字体.ttf');
     font-display : swap;
 }
 
@@ -8,9 +8,8 @@ body {
     font-family: 'Candyhome', sans-serif;
 }
 
-div#post p {
+div#post {
     font-family: -apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Lato,Roboto,"PingFang SC",STZhongsong,"Lantinghei SC",sans-serif;
-
 }
 
 div#post{

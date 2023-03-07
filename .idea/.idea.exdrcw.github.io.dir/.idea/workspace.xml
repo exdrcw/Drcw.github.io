@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="765db3f8-b7d9-4eb1-aab8-7ae77c0934da" name="Changes" comment="Github action">
-      <change afterPath="$PROJECT_DIR$/themes/butterfly/source/css/font.css" afterDir="false" />
+    <list default="true" id="765db3f8-b7d9-4eb1-aab8-7ae77c0934da" name="Changes" comment="font support">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.exdrcw.github.io.dir/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.exdrcw.github.io.dir/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/themes/butterfly/source/css/font.css" beforeDir="false" afterPath="$PROJECT_DIR$/themes/butterfly/source/css/font.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -44,7 +44,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1678155411498</updated>
-      <workItem from="1678155417000" duration="3374000" />
+      <workItem from="1678155417000" duration="5848000" />
     </task>
     <task id="LOCAL-00001" summary="inite">
       <created>1678156060056</created>
@@ -74,7 +74,14 @@
       <option name="project" value="LOCAL" />
       <updated>1678171161836</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="font support">
+      <created>1678171624698</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1678171624698</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -99,7 +106,8 @@
     <MESSAGE value="Init" />
     <MESSAGE value="init" />
     <MESSAGE value="Github action" />
-    <option name="LAST_COMMIT_MESSAGE" value="Github action" />
+    <MESSAGE value="font support" />
+    <option name="LAST_COMMIT_MESSAGE" value="font support" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
