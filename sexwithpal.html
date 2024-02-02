@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>PPAALL</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.2.3/css/bootstrap.min.css">
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.4/jquery.js"></script>
+    <style>
+        #loading {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            background: rgba( 255, 255, 255, .8 ) url('https://i.stack.imgur.com/FhHRx.gif') 50% 50% no-repeat;
+        }
+        body.loading {
+            overflow: hidden;
+        }
+        body.loading #loading {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+<div id="loading"></div>
+<div class="container">
+    <h1 class="mt-5">服务器信息</h1>
+    <button class="btn btn-primary mt-3 mb-3" onclick="refreshAll()">刷新</button>
+    <button class="btn btn-success mt-3 mb-3" id="openServerButton" onclick="openServer()">开服</button>
+    <button class="btn btn-danger mt-3 mb-3" id="closeServerButton" onclick="closeServer()">关服</button>
+    <table class="table table-striped" id="infoTable">
+        <thead>
+        <tr>
+            <th scope="col">服务器状态</th>
+            <th scope="col">上次运行时间</th>
+            <th scope="col">IP</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+
+    <h1 class="mt-5">日志</h1>
+    <table class="table table-striped" id="eventTable">
+        <thead>
+        <tr>
+            <th scope="col">❤️‍🔥</th>
+            <th scope="col">⌚</th>
+            <th scope="col">⏰</th>
+            <th scope="col">🥵</th>
+        </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+
+<script>
+    $(document).ready(function() {
+        fetchData();
+        fetchInfo();
+    });
+
+    function refreshAll() {
+        $("body").addClass("loading");
+        $.when(fetchData(), fetchInfo()).done(function() {
+            $("body").removeClass("loading");
+            $('#loading').after('<div class="alert alert-success">刷新完成</div>');
+            $('.alert').delay(3000).fadeOut('slow'); // Fade out the success/error message after 3 seconds
+        });
+    }
+
+    function fetchData() {
+        $("body").addClass("loading");
+        $.getJSON('https://checkpalpy-pal-afchuorbnn.cn-hangzhou.fcapp.run/check', function(data) {
+            parseJson(data);
+            $("body").removeClass("loading");
+        });
+    }
+
+    function fetchInfo() {
+        $("body").addClass("loading");
+        $.getJSON('https://checkpalpy-pal-afchuorbnn.cn-hangzhou.fcapp.run/info', function(data) {
+            parseInfo(data);
+            $("body").removeClass("loading");
+        });
+    }
+
+    function parseJson(data) {
+        const events = data.body.Events;
+        const table = document.getElementById('eventTable');
+        let lastStartTime;
+
+        // Clear the table
+        for(let i = table.rows.length - 1; i > 0; i--) {
+            table.deleteRow(i);
+        }
+
+        for(let i = events.length - 1; i >= 0; i--) {
+            const event = events[i];
+            if (event.eventName === 'StopInstance' || event.eventName === 'StartInstance' || event.eventName === 'StopInstances' || event.eventName === 'StartInstances' ) {
+                const row = table.insertRow(1);
+                const cell1 = row.insertCell(0);
+                const cell2 = row.insertCell(1);
+                const cell3 = row.insertCell(2);
+                const cell4 = row.insertCell(3);
+
+                if (event.eventName.includes('Start')) {
+                    cell1.innerHTML = "😀 开服了";
+                } else if (event.eventName.includes('Stop')) {
+                    cell1.innerHTML = "😴 关服了";
+                }
+
+                cell2.innerHTML = new Date(event.eventTime).toLocaleString(); // Convert to local time string
+
+                if (event.eventName === 'StartInstance' || event.eventName === 'StartInstances') {
+                    lastStartTime = new Date(event.eventTime);
+                    cell3.innerHTML = '';
+                } else if ((event.eventName === 'StopInstance' || event.eventName === 'StopInstances') && lastStartTime) {
+                    const stopTime = new Date(event.eventTime);
+                    const runTime = Math.abs(stopTime - lastStartTime) / 1000;
+                    cell3.innerHTML = (runTime/60/60).toFixed(2) + "小时";
+                    lastStartTime = null; // Reset last start time
+                } else {
+                    cell3.innerHTML = '';
+                }
+
+                cell4.innerHTML = event.eventName;
+            }
+        }
+    }
+
+
+
+    function parseInfo(data) {
+        const instance = data.body.Instances.Instance[0];
+        const $table = $("#infoTable tbody");
+
+        // Clear the table
+        $table.empty();
+
+        let status = instance.Status;
+        let statusText = '';
+
+        if (status === "Running") {
+            statusText = "运行中 (" + status + ")";
+        } else if (status === "Stopped") {
+            statusText = "已停止 (" + status + ")";
+        }
+
+        let ip = '';
+        if (status === "Running" && instance.PublicIpAddress.IpAddress.length > 0) {
+            ip = instance.PublicIpAddress.IpAddress[0];
+        }
+
+        $table.append(`<tr>
+            <td>${statusText}</td>
+            <td>${new Date(instance.StartTime).toLocaleString()}</td>
+            <td>${ip}</td>
+        </tr>`);
+
+        // Enable or disable buttons based on server status
+        if (status === "Running") {
+            $("#openServerButton").prop("disabled", true);
+            $("#closeServerButton").prop("disabled", false);
+        } else {
+            $("#openServerButton").prop("disabled", false);
+            $("#closeServerButton").prop("disabled", true);
+        }
+    }
+
+
+    function openServer() {
+        $("body").addClass("loading");
+        $.get("https://checkpalpy-pal-afchuorbnn.cn-hangzhou.fcapp.run/open", function(data, status){
+            $("body").removeClass("loading");
+            if(status === "success") {
+                $('#loading').after('<div class="alert alert-success">Server opened successfully!</div>');
+            } else {
+                $('#loading').after('<div class="alert alert-danger">Failed to open server!</div>');
+            }
+            fetchInfo(); // Refresh server info
+            $('.alert').delay(3000).fadeOut('slow'); // Fade out the success/error message after 3 seconds
+        });
+    }
+
+    function closeServer() {
+        $("body").addClass("loading");
+        $.get("https://checkpalpy-pal-afchuorbnn.cn-hangzhou.fcapp.run/close", function(data, status){
+            $("body").removeClass("loading");
+            if(status === "success") {
+                $('#loading').after('<div class="alert alert-success">Server closed successfully!</div>');
+            } else {
+                $('#loading').after('<div class="alert alert-danger">Failed to close server!</div>');
+            }
+            fetchInfo(); // Refresh server info
+            $('.alert').delay(3000).fadeOut('slow'); // Fade out the success/error message after 3 seconds
+        });
+    }
+</script>
+</body>
+</html>
